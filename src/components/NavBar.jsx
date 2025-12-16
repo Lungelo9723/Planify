@@ -1,24 +1,32 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 export default function NavBar() {
+  const { registeredUser, currentUser, logout } =
+    useContext(AuthContext);
+
   return (
-    <nav
-      style={{
-        position: "fixed",
-        top: 0,
-        width: "100%",
-        backgroundColor: "#f8f9fa",
-        padding: "1rem",
-        borderBottom: "1px solid #ddd",
-        zIndex: 1000,
-        display: "flex",
-        gap: "1rem",
-      }}
-    >
-    
-        <Link to="/dashboard">Dashboard</Link>
+    <header style={{ position: "fixed", top: 0, width: "100%" }}>
+      <nav style={{ display: "flex", gap: "16px" }} >
+        <Link to="/">Dashboard</Link>
         <Link to="/add-event">Add Event</Link>
         <Link to="/help">Help</Link>
+
+        {!registeredUser && (
+          <Link to="/register">Register</Link>
+        )}
+
+        {registeredUser && !currentUser && (
+          <Link to="/login">Login</Link>
+        )}
+
+        {currentUser && (
+          <button onClick={logout} style={{ marginLeft: "10px" }}>
+            Logout
+          </button>
+        )}
       </nav>
+    </header>
   );
 }
