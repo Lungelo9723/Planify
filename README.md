@@ -1,16 +1,75 @@
-# React + Vite
+Planify
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Overview
+Planify is a React + Vite web application that allows users to organize and manage personal or professional events.
+Users can register, log in, add events, view them on a dashboard, and delete events. The app uses the Context API for state management, with persistent authentication across page refreshes.
 
-Currently, two official plugins are available:
+Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+User Registration & Login with validation
 
-## React Compiler
+Persistent Authentication using localStorage
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Add Events with details: name, date, time, description, location
 
-## Expanding the ESLint configuration
+View Events dynamically on the Dashboard
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Delete Events
+
+Protected Routes for dashboard and add-event pages
+
+Navigation Bar with links to Dashboard, Add Event, Help, Login/Register
+
+Help Page with instructions on navigating the app
+
+Responsive layout using React-Bootstrap
+
+Installation
+
+Clone the repository:
+git clone https://github.com/Lungelo9723/Planify.git
+
+Navigate to the project folder:
+cd Planify
+
+Install dependencies:
+npm install
+
+Start the development server:
+npm run dev
+
+Open the app in your browser:
+http://localhost:5173
+
+Usage
+
+Go to the Register page to create a new account.
+
+Log in with the registered credentials on the Login page.
+
+Add events on the Add Event page.
+
+View all events on the Dashboard.
+
+Delete events if necessary.
+
+Use the Help page for guidance on navigating and using the app.
+
+Folder Structure
+src/
+├─ components/ - Reusable UI components (NavBar, etc.)
+├─ context/ - AuthContext and EventsContext
+├─ pages/ - Register, Login, Dashboard, AddEvent, Help
+├─ routes/ - ProtectedRoute
+├─ main.jsx - App entry point
+├─ App.jsx - Main app component (routing)
+
+Notes
+
+Event editing/updating is implemented.
+
+The app uses React Context for managing authentication and events.
+
+Styling and layout use React-Bootstrap for responsiveness.
+
+Authentication and events are persisted in localStorage to survive page refreshes.
