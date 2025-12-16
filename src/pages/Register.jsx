@@ -1,17 +1,18 @@
 import { useState, useContext } from "react";
+import { Form, Button, Container, Card, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import NavBar from "../components/NavBar";
 
 export default function Register() {
   const { register } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,68 +22,55 @@ export default function Register() {
       return;
     }
 
-    const emailRegex =
-      /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-
-    if (!emailRegex.test(email)) {
-      setError("Please enter a valid email address");
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+      setError("Invalid email address");
       return;
     }
 
     register({ name, username, email, password });
-    setSuccess(true);
-    setError("");
+
+    // Redirect to login with success message
+    navigate("/login", {
+      state: { message: "Registration successful. Please log in." },
+    });
   };
 
   return (
-    <div style={{ paddingTop: "80px" }}>
+    <>
       <NavBar />
-      <h2>Register</h2>
+      <Container className="mt-5">
+        <Card>
+          <Card.Body>
+            <Card.Title>Register</Card.Title>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name:</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
+            {error && <Alert variant="danger">{error}</Alert>}
 
-        <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3">
+                <Form.Label>Name</Form.Label>
+                <Form.Control value={name} onChange={(e) => setName(e.target.value)} />
+              </Form.Group>
 
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
+              <Form.Group className="mb-3">
+                <Form.Label>Username</Form.Label>
+                <Form.Control value={username} onChange={(e) => setUsername(e.target.value)} />
+              </Form.Group>
 
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
+              <Form.Group className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} />
+              </Form.Group>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit">Register</button>
-      </form>
+              <Form.Group className="mb-3">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              </Form.Group>
 
-      {success && (
-        <p>Registration successful. You may now log in.</p>
-      )}
-    </div>
+              <Button type="submit">Register</Button>
+            </Form>
+          </Card.Body>
+        </Card>
+      </Container>
+    </>
   );
 }

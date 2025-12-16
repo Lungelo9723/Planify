@@ -1,9 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { AuthProvider } from "./context/AuthContext";
-import { EventsProvider } from "./context/EventContext";
+import { EventsProvider } from "./context/EventsContext";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 

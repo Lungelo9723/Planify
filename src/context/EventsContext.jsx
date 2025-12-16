@@ -14,6 +14,15 @@ export const EventsProvider =({children}) => {
     setEvents((prev) => [...prev, newEvent]);
   };
 
+  // Update event
+  const updateEvent = (eventId, updatedData) => {
+    setEvents((prev) =>
+      prev.map((event) =>
+        event.id === eventId ? { ...event, ...updatedData } : event
+      )
+    );
+  };
+
   // Delete an event by id
   const deleteEvent = (eventId) => {
     setEvents((prev) => prev.filter((event) => event.id !== eventId));
@@ -29,6 +38,7 @@ return (
       value={{
         events,
         addEvent,
+        updateEvent,
         deleteEvent,
       }}
     >

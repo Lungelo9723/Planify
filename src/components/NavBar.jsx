@@ -1,32 +1,59 @@
-import { Link } from "react-router-dom";
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
 export default function NavBar() {
-  const { registeredUser, currentUser, logout } =
-    useContext(AuthContext);
+  const { currentUser, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
-    <header style={{ position: "fixed", top: 0, width: "100%" }}>
-      <nav style={{ display: "flex", gap: "16px" }} >
-        <Link to="/">Dashboard</Link>
-        <Link to="/add-event">Add Event</Link>
-        <Link to="/help">Help</Link>
+    <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
+      <Container>
+        <Navbar.Brand as={Link} to="/">
+          PLANIFY
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            {currentUser && (
+              <>
+                <Nav.Link as={Link} to="/">
+                  Dashboard
+                </Nav.Link>
+                <Nav.Link as={Link} to="/add-event">
+                  Add Event
+                </Nav.Link>
+              </>
+            )}
+            <Nav.Link as={Link} to="/help">
+              Help
+            </Nav.Link>
+          </Nav>
 
-        {!registeredUser && (
-          <Link to="/register">Register</Link>
-        )}
-
-        {registeredUser && !currentUser && (
-          <Link to="/login">Login</Link>
-        )}
-
-        {currentUser && (
-          <button onClick={logout} style={{ marginLeft: "10px" }}>
-            Logout
-          </button>
-        )}
-      </nav>
-    </header>
+          <Nav>
+            {!currentUser ? (
+              <>
+                <Nav.Link as={Link} to="/login">
+                  Login
+                </Nav.Link>
+                <Nav.Link as={Link} to="/register">
+                  Register
+                </Nav.Link>
+              </>
+            ) : (
+              <Button variant="outline-light" onClick={handleLogout}>
+                Logout
+              </Button>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
