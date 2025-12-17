@@ -41,13 +41,16 @@ url is https://github.com/Lungelo9723/Planify.git
 
 ## Folder Structure
 
+```
 src/
-├─ components/ - Reusable UI components (NavBar, etc.)
-├─ context/ - AuthContext and EventsContext
-├─ pages/ - Register, Login, Dashboard, AddEvent, Help
-├─ routes/ - ProtectedRoute
-├─ main.jsx - App entry point
-├─ App.jsx - Main app component (routing)
+├─ components/      # Reusable UI components (NavBar, etc.)
+├─ context/         # AuthContext and EventsContext
+├─ pages/           # Register, Login, Dashboard, AddEvent, Help
+├─ routes/          # ProtectedRoute
+├─ main.jsx         # App entry point
+├─ App.jsx          # Main app component (routing)
+```
+
 
 ## Notes
 
